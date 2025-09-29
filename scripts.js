@@ -4,8 +4,6 @@ let currentRow = 0;           // Which row we're filling (0-5)
 let currentTile = 0;          // Which tile in the row (0-4)
 let gameOver = false;         // Is the game finished?
 
-document.addEventListener("keydown",(event) => {
-    
 // DOM element references (set up on page load)
 let gameBoard, rows, debugOutput;
 
@@ -71,43 +69,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // TODO: Add keyboard event listener
 document.addEventListener("keydown", (event) => {
-    if (gamerOver=false){
-        ///ignore input if over
-        ///else continue game
+    let key = event.key
+    const uppercase = key.toUpperCase();
+    //logDebug(key);
+    //if (gameOver=== false){
+
+    if (uppercase === "BACKSPACE") {
+        //deleteLetter();
+        logDebug(uppercase);
+        } 
+    if (/^[A-Z]$/i.test(uppercase)) {
+        logDebug(uppercase);
+            addLetter(uppercase);
+    
     }
-    const uppercase= userInput.toUpperCase();
-    if (KeyboardEvent.length === 1 && key >= 'A' && key <='Z'){
-        console.log("Valid Letter!")}
-        else{
-            console.log("Invalid Character");
-        }
-       
-    deleteLetter();
-    submitGuess();
-    addLetter(key);
-});
+    else if (uppercase === "ENTER") {
+        logDebug(uppercase)
+        //submitGuess();
+    }
+
+    }
+)
 //     // Your code here!
 // });
 
-// TODO: Implement addLetter function
 function addLetter(letter) {
     logDebug(`🎯 addLetter("${letter}") called`, 'info');
     
-    if (currentTile >= 5){
-            console.log("error")}
-    else{
-            rows[currentRow]
-            querySelectorAll('.tile')
-            tiles[currentTile]
-            tile.textContent= letter
-            tile.classList.add('filled')
-            tiles[currentTile]+=1
-            console.log("success message ")
-            getCurrentWord()
-            }
-    }
-//     // Your code here!
-// }
+    // TODO: Check if current row is full (currentTile >= 5)
+        if (currentTile >= 5){
+            logDebug("Row is full");
+        }
+        else{
+        tiles= rows[currentRow].querySelectorAll('.tile');
+        tile= tiles[currentTile];
+        tile.textContent=letter;
+        tile.classList.add('filled');
+        currentTile++;
+        logDebug(getCurrentWord());
+        }
+        
+    // TODO: If full, log error message and return early
+    // TODO: Get the current row element using rows[currentRow]
+    // TODO: Get all tiles in that row using querySelectorAll('.tile')
+    // TODO: Get the specific tile using tiles[currentTile]
+    // TODO: Set the tile's textContent to the letter
+    // TODO: Add the 'filled' CSS class to the tile
+    // TODO: Increment currentTile by 1
+    // TODO: Log success message with position info
+    // TODO: Log current word progress using getCurrentWord()
+}
+
 
 // TODO: Implement deleteLetter function  
 // function deleteLetter() {
@@ -124,4 +136,3 @@ function addLetter(letter) {
 //     // Your code here!
 //     // Remember: handle duplicate letters correctly
 //     // Return the result array
-//
