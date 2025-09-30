@@ -75,7 +75,7 @@ document.addEventListener("keydown", (event) => {
     //if (gameOver=== false){
 
     if (uppercase === "BACKSPACE") {
-        //deleteLetter();
+        deleteLetter();
         logDebug(uppercase);
         } 
     if (/^[A-Z]$/i.test(uppercase)) {
@@ -106,25 +106,37 @@ function addLetter(letter) {
         tile.textContent=letter;
         tile.classList.add('filled');
         currentTile++;
-        logDebug(getCurrentWord());
         }
-        
-    // TODO: If full, log error message and return early
+}
+function deleteLetter() {
+    logDebug(`🗑️ deleteLetter() called`, 'info');
+        if (currentTile <= 0){
+            return;
+        }
+        else{
+            currentTile--;
+            tiles= rows[currentRow].querySelectorAll('.tile');
+            tile.textContent=letter;
+            tile= tiles[currentTile];
+            tile.textContent='';
+            tile.classList.remove('filled');
+            logDebug(letter + currentTile);
+            
+        }
+    // TODO: Check if there are letters to delete (currentTile <= 0)
+    // TODO: If no letters, log error message and return early
+    // TODO: Decrement currentTile FIRST (currentTile--)
     // TODO: Get the current row element using rows[currentRow]
     // TODO: Get all tiles in that row using querySelectorAll('.tile')
-    // TODO: Get the specific tile using tiles[currentTile]
-    // TODO: Set the tile's textContent to the letter
-    // TODO: Add the 'filled' CSS class to the tile
-    // TODO: Increment currentTile by 1
-    // TODO: Log success message with position info
-    // TODO: Log current word progress using getCurrentWord()
+    // TODO: Get the specific tile to clear using tiles[currentTile]
+    // TODO: Store the letter being deleted for logging (tile.textContent)
+    // TODO: Clear the tile's textContent (set to empty string '')
+    // TODO: Remove the 'filled' class from the tile
+    // TODO: Log what was deleted and from which position
+    // TODO: Log current word status using getCurrentWord()
 }
 
 
-// TODO: Implement deleteLetter function  
-// function deleteLetter() {
-//     // Your code here!
-// }
 
 // TODO: Implement submitGuess function
 // function submitGuess() {
