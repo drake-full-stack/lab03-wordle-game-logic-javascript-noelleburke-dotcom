@@ -152,7 +152,7 @@ function submitGuess() {
             }
             else if (currentRow >= 6) {
                 gameOver = true; // player used all 6 rows - game over
-                logDebug("out of turns")
+                logDebug("out of turns");
             }
 
             else{
@@ -163,23 +163,6 @@ function submitGuess() {
             }
         }}
 
-        
-    // TODO: Check if row has exactly 5 letters (currentTile !== 5)
-    // TODO: If not 5 letters, show alert and return early
-    // TODO: Get the current row element using rows[currentRow]
-    // TODO: Get all tiles in that row using querySelectorAll('.tile')
-    // TODO: Build the guess string by looping through tiles
-    // TODO: Log the guess and target word for debugging
-    // TODO: Call checkGuess(guess, tiles) - we'll implement this next!
-    // TODO: Move to next row: increment currentRow, reset currentTile to 0
-    // TODO: Check win condition: if guess === TARGET_WORD, set gameOver = true
-    // TODO: Check lose condition: if currentRow >= 6, set gameOver = true
-    // TODO: Show appropriate alert for win/lose (use setTimeout for smoother experience)
-    // TODO: Log current game status (won/lost/continuing)
-// TODO: Implement submitGuess function
-// function submitGuess() {
-//     // Your code here!
-// }
 
 // TODO: Implement checkGuess function (the hardest part!)
 // function checkGuess(guess, tiles) {
