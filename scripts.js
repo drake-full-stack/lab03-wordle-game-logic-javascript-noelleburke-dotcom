@@ -116,12 +116,12 @@ function deleteLetter() {
         else{
             currentTile--;
             tiles= rows[currentRow].querySelectorAll('.tile');
-            tile.textContent=letter;
+            //tile.textContent=letter;
             tile= tiles[currentTile];
             tile.textContent='';
             tile.classList.remove('filled');
             logDebug(letter + currentTile);
-            
+            logDebug(getCurrentWord())
         }
     // TODO: Check if there are letters to delete (currentTile <= 0)
     // TODO: If no letters, log error message and return early
