@@ -72,24 +72,29 @@ document.addEventListener("keydown", (event) => {
     let key = event.key
     const uppercase = key.toUpperCase();
     //logDebug(key);
-    //if (gameOver=== false){
-
-    if (uppercase === "BACKSPACE") {
-        deleteLetter();
-        logDebug(uppercase);
-        } 
-    if (/^[A-Z]$/i.test(uppercase)) {
-        logDebug(uppercase);
-            addLetter(uppercase);
+    if (gameOver=== true){
+        logDebug("The game is over");
+    }
+        else{
+           if (uppercase === "BACKSPACE") {
+            deleteLetter();
+            logDebug(uppercase);
+            } 
+            if (/^[A-Z]$/i.test(uppercase)) {
+                logDebug(uppercase);
+                addLetter(uppercase);
     
-    }
-    else if (uppercase === "ENTER") {
-        logDebug(uppercase)
-        //submitGuess();
-    }
+            }
+            else if (uppercase === "ENTER") {
+                logDebug(uppercase)
+                submitGuess();
+            } 
+        }
+    })
+      
 
-    }
-)
+
+
 //     // Your code here!
 // });
 
@@ -116,28 +121,61 @@ function deleteLetter() {
         else{
             currentTile--;
             tiles= rows[currentRow].querySelectorAll('.tile');
-            //tile.textContent=letter;
             tile= tiles[currentTile];
             tile.textContent='';
             tile.classList.remove('filled');
-            logDebug(letter + currentTile);
-            logDebug(getCurrentWord())
+            logDebug(currentTile);
+            //logDebug(getCurrentWord())
         }
-    // TODO: Check if there are letters to delete (currentTile <= 0)
-    // TODO: If no letters, log error message and return early
-    // TODO: Decrement currentTile FIRST (currentTile--)
-    // TODO: Get the current row element using rows[currentRow]
-    // TODO: Get all tiles in that row using querySelectorAll('.tile')
-    // TODO: Get the specific tile to clear using tiles[currentTile]
-    // TODO: Store the letter being deleted for logging (tile.textContent)
-    // TODO: Clear the tile's textContent (set to empty string '')
-    // TODO: Remove the 'filled' class from the tile
-    // TODO: Log what was deleted and from which position
-    // TODO: Log current word status using getCurrentWord()
 }
 
 
+function submitGuess() {
+    logDebug(getCurrentWord());
+        if (currentTile !== 5) {
+             // Row is not full - need exactly 5 letters
+            logDebug("Please enter 5 letters!");
+            return; // exit early
+        }
+        else {
+            const currentRowElement = rows[currentRow];
+            const tiles = currentRowElement.querySelectorAll('.tile');
+            let guess = ''; // start with empty string
 
+// Loop through all tiles and build the word
+            tiles.forEach(tile => {
+            guess += tile.textContent; // add each letter to our word
+});;
+            if (guess=== TARGET_WORD){
+                logDebug("you win!");
+                gameOver = true;
+            }
+            else if (currentRow >= 6) {
+                gameOver = true; // player used all 6 rows - game over
+                logDebug("out of turns")
+            }
+
+            else{
+                currentRow++;     // move to next row (0→1, 1→2, etc.)
+                currentTile = 0;  // reset to start of new row
+                checkGuess(guess,tiles);
+                
+            }
+        }}
+
+        
+    // TODO: Check if row has exactly 5 letters (currentTile !== 5)
+    // TODO: If not 5 letters, show alert and return early
+    // TODO: Get the current row element using rows[currentRow]
+    // TODO: Get all tiles in that row using querySelectorAll('.tile')
+    // TODO: Build the guess string by looping through tiles
+    // TODO: Log the guess and target word for debugging
+    // TODO: Call checkGuess(guess, tiles) - we'll implement this next!
+    // TODO: Move to next row: increment currentRow, reset currentTile to 0
+    // TODO: Check win condition: if guess === TARGET_WORD, set gameOver = true
+    // TODO: Check lose condition: if currentRow >= 6, set gameOver = true
+    // TODO: Show appropriate alert for win/lose (use setTimeout for smoother experience)
+    // TODO: Log current game status (won/lost/continuing)
 // TODO: Implement submitGuess function
 // function submitGuess() {
 //     // Your code here!
