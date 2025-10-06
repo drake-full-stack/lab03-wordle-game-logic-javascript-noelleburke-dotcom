@@ -158,7 +158,21 @@ function submitGuess() {
             else{
                 currentRow++;     // move to next row (0→1, 1→2, etc.)
                 currentTile = 0;  // reset to start of new row
-                checkGuess(guess,tiles);
+                results=checkGuess(guess,tiles);
+                logDebug(results);
+                for (let i = 0; i < 5; i++){
+                    if(tiles[i] && results[i]=== 'correct'){
+                        tiles[i].classList.add('correct')
+                    }
+                    else if (tiles[i] && results[i]=== 'present'){
+                        tiles[i].classList.add('present')
+                    }
+                    else if (tiles[i]){
+                        tiles[i].classList.add('absent')
+                    }
+                    
+                }
+              //colors here  
                 
             }
         }}
@@ -169,3 +183,37 @@ function submitGuess() {
 //     // Your code here!
 //     // Remember: handle duplicate letters correctly
 //     // Return the result array
+function checkGuess(guess, tiles) {
+    logDebug(`🔍 Starting analysis for "${guess}"`, 'info');
+    
+    
+    // TODO: Split TARGET_WORD and guess into arrays
+    const TARGET_WORD = ['W','O','R','D','S'];
+    const guessArray = guess.split('');
+    const result = ['absent', 'absent', 'absent', 'absent', 'absent'];
+    
+    // STEP 1: Find exact matches
+    for (let i = 0; i < 5; i++) {
+        if (TARGET_WORD[i]===guessArray[i]) {
+            result[i] = 'correct';
+            guessArray[i]=null;
+            TARGET_WORD[i]=null;
+        }
+    }
+    
+    // STEP 2: Find wrong position matches  
+    for (let i = 0; i < 5; i++) {
+        if (guessArray[i] !== null) { 
+            if (! TARGET_WORD.includes(guessArray[i]))
+                result[i]='present'
+                guessArray[i]=null;
+                TARGET_WORD[i]=null;
+           }
+        }
+    logDebug(result);
+    return result;
+    }
+    
+    // TODO: Apply CSS classes to tiles -- we'll do this in the next step
+ 
+
